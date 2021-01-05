@@ -7,6 +7,8 @@ public class PrisijungimoApp
     public static void main (String[] args)
     {
         // BufferedReader ivedimas = new BufferedReader(new InputStreamReader(System.in));
+
+        // Susikuriamas scanner objektas - nuskaityti informacijai is konsoles
         Scanner ivedimas = new Scanner(System.in);
      /*   int skaicius = 100;
         int ivestasSkaicius = ivedimas.nextInt();*/
@@ -19,12 +21,46 @@ public class PrisijungimoApp
             System.out.println("neveinodi");
         }*/
 
+        // Ivedama vartotojo informacija - konsoleje parodoma ka ivesti ir vartotojas turi ivesti
+        System.out.println("Iveskite savo vartotojo varda: ");
+        String temp_ivestasVartotojoVardas = ivedimas.next();
+        System.out.println("Iveskite savo slaptazodi: ");
+        String temp_ivestasVartotojoPassword = ivedimas.next();
+        System.out.println("Iveskite savo gimimo datos metus: ");
+        int temp_gimDataMetai = ivedimas.nextInt();
+        System.out.println("Iveskite savo gimimo datos menesi: ");
+        int temp_gimDataMenuo = ivedimas.nextInt();
+        System.out.println("Iveskite savo gimimo datos diena: ");
+        int temp_gimDataDiena = ivedimas.nextInt();
 
+
+        // Susikuriamas najas Vartotojas klases objektas - musu vartotojas
+        Vartotojas ivestasVartotojas = new Vartotojas(temp_ivestasVartotojoVardas, temp_ivestasVartotojoPassword);
+        Vartotojas kitasVartotojas = new Vartotojas(temp_ivestasVartotojoVardas, temp_ivestasVartotojoPassword, temp_gimDataMetai, temp_gimDataMenuo, temp_gimDataDiena);
+
+        System.out.println(kitasVartotojas.vartotojoIsvedimas());
+        System.out.println(kitasVartotojas.toString());
+
+
+   /*     System.out.println("Vartotojas objekto username: " + ivestasVartotojas.gautiUsername());
+        System.out.println("Vartotojas objekto password: " + ivestasVartotojas.gautiPassword());
+        System.out.println("Kitas vartotojas objekto username: " + kitasVartotojas.getUsername());
+        System.out.println("Kitas vartotojas objekto passwrod: " + kitasVartotojas.getPassword());
+        System.out.println("Kitas vartotojas objekto metai: " + kitasVartotojas.getGimDataMetai());
+        System.out.println("Kitas vartotojas objekto menuo: " + kitasVartotojas.getGimDataMenuo());
+        System.out.println("Kitas vartotojas objekto diena: " + kitasVartotojas.getGimDataDiena());
+        System.out.println("Kitas vartotojas objekto isvedimas per bruksniuka: " + kitasVartotojas.getDataPerBriuksniuka());*/
+
+
+
+
+        // Nuskaitomas slapyvardis ir slaptazodis is konsoles
         String vartotojoUsername = ivedimas.next();
      //   String vartotojoUsernameGavimoBudas = "Gavo per Scanner";
         String vartotojoPassword = ivedimas.next();
 
 
+        // Nuskaitoma gimimo data is konsoles
         int vartotojoMetai = ivedimas.nextInt();
 
         while (vartotojoMetai < 0)
@@ -54,6 +90,7 @@ public class PrisijungimoApp
 
 
 
+        // Isvedama bei tikrinama informacija
         String tikrasisUsername = "vartotojas123";
      //   String tikrasisUsernameGavimoBUdas = "Gavo per Koda";
         String tikrasisPassword = "slaptazodis589";
