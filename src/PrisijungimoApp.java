@@ -1,15 +1,19 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Scanner;
 
 public class PrisijungimoApp
 {
-    public static void main (String[] args)
+    public static void main (String[] args) throws FileNotFoundException
     {
         // BufferedReader ivedimas = new BufferedReader(new InputStreamReader(System.in));
 
         // Susikuriamas scanner objektas - nuskaityti informacijai is konsoles
         Scanner ivedimas = new Scanner(System.in);
+        String dbFailoPavadinimas = "db_prisijungimai.txt";
+        File dbFailas = new File(dbFailoPavadinimas);
+        Scanner failoSkaitytuvas = new Scanner(dbFailas);
+
+        System.out.println(failoSkaitytuvas.nextLine());
      /*   int skaicius = 100;
         int ivestasSkaicius = ivedimas.nextInt();*/
      /*   if (skaicius == ivestasSkaicius)
