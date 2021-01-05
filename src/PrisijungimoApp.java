@@ -7,13 +7,50 @@ public class PrisijungimoApp
     {
         // BufferedReader ivedimas = new BufferedReader(new InputStreamReader(System.in));
 
+        Vartotojas nuskaitytasVartotojas;
+        try
+        {
+            String dbFailoPavadinimas = "db_prisijungimai.txt";
+            File dbFailas = new File(dbFailoPavadinimas);
+            Scanner failoSkaitytuvas = new Scanner(dbFailas);
+
+            String temp_Vardas = failoSkaitytuvas.nextLine();
+            String temp_Password = failoSkaitytuvas.nextLine();
+            String temp_gimMetai = failoSkaitytuvas.nextLine();
+            String temp_gimMenuo = failoSkaitytuvas.nextLine();
+            String temp_gimDiena = failoSkaitytuvas.nextLine();
+
+            String[] temp_VardoMasyvas = temp_Vardas.split(":");
+
+            System.out.println(temp_VardoMasyvas[1].trim());
+
+         /*   while (failoSkaitytuvas.hasNextLine())
+            {
+                System.out.println(failoSkaitytuvas.nextLine());
+            }*/
+        }
+        catch (IOException e)
+        {
+            String dbFailoPavadinimas = "db_prisijungimai.txt";
+            File naujasFailas = new File(dbFailoPavadinimas);
+            System.out.println("Ivyko klaida: " + e);
+            try
+            {
+                naujasFailas.createNewFile();
+            }
+            catch (IOException e1)
+            {
+                System.out.println("Negalima sukurti failo, gautas error: " + e1);
+            }
+        }
+
+
+
         // Susikuriamas scanner objektas - nuskaityti informacijai is konsoles
         Scanner ivedimas = new Scanner(System.in);
-        String dbFailoPavadinimas = "db_prisijungimai.txt";
-        File dbFailas = new File(dbFailoPavadinimas);
-        Scanner failoSkaitytuvas = new Scanner(dbFailas);
 
-        System.out.println(failoSkaitytuvas.nextLine());
+
+
      /*   int skaicius = 100;
         int ivestasSkaicius = ivedimas.nextInt();*/
      /*   if (skaicius == ivestasSkaicius)
