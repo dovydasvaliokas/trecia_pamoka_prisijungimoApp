@@ -83,6 +83,17 @@ public class Vartotojas
         return temp_isvestasTekstas;
     }
 
+    public String vartotojoIsvedimasIDBFaila()
+    {
+        String temp_isvestasTekstas = "";
+        temp_isvestasTekstas += "vartotojo_vardas: " + this.username + "\n";
+        temp_isvestasTekstas += "vartotojo_slaptazodis: " + this.password + "\n";
+        temp_isvestasTekstas = temp_isvestasTekstas + "vartotojo_gimMetai: " + this.gimDataMetai + "\n";       // tas pats kas rasyti += operatoriu
+        temp_isvestasTekstas += "vartotojo_gimMenuo: " + this.gimDataMenuo + "\n";
+        temp_isvestasTekstas += "vartotojo_gimDiena: " + this.gimDataDiena;
+        return temp_isvestasTekstas;
+    }
+
 
 
     //---------------------------------
