@@ -46,6 +46,19 @@ public class Vartotojas
     //----------------------------------------------
 
 
+    // Overload
+    // Overload - metodas gauna skirtinga skaiciu kintamuju arba gauna skirtingo tipo kintamuosiuos parametruose
+    public boolean equals(Vartotojas obj)
+    {
+        boolean arVienodi = false;
+        if ((this.username.equals(obj.getUsername())) && (this.password.equals(obj.getPassword())))
+        {
+            arVienodi = true;
+        }
+        return arVienodi;
+     //   return ((this.username.equals(obj.getUsername()) && this.password.equals(obj.getPassword())));
+    }
+
     @Override
     public String toString()
     {

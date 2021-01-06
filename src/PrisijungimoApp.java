@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class PrisijungimoApp
@@ -7,27 +9,76 @@ public class PrisijungimoApp
     {
         // BufferedReader ivedimas = new BufferedReader(new InputStreamReader(System.in));
 
-        Vartotojas nuskaitytasVartotojas;
+        // Susikuriamas scanner objektas - nuskaityti informacijai is konsoles
+        Scanner ivedimas = new Scanner(System.in);
+
+        int kelintasVartotojas = 0;
+        Vartotojas[] dbVartotojai = new Vartotojas[100];
+        String arRegistracija = "";
+        System.out.println("Iveskite \"Registracija\" jei norite registruotis arba iveskite \"Prisijungimas\", jei norite prisijungti");
+        arRegistracija = ivedimas.next();
+
+        if (arRegistracija.equals("Registracija"))
+        {
+            System.out.println("NORIME REGISTRUOTIS");
+            String dbFailoPavadinimas = "db_prisijungimai.txt";
+            File dbFailas = new File(dbFailoPavadinimas);
+            try
+            {
+                FileWriter failoRas = new FileWriter(dbFailas, true);
+                BufferedWriter failoRasytuvas = new BufferedWriter(failoRas);
+
+                Vartotojas registruojamasVartotojas = new Vartotojas();
+
+                System.out.println("Iveskite savo REG vartotojo varda: ");
+                registruojamasVartotojas.setUsername(ivedimas.next());
+                System.out.println("Iveskite savo REG slaptazodi: ");
+                registruojamasVartotojas.setPassword(ivedimas.next());
+                System.out.println("Iveskite savo REG gimimo datos metus: ");
+                registruojamasVartotojas.setGimDataMetai(ivedimas.nextInt());
+                System.out.println("Iveskite savo REG gimimo datos menesi: ");
+                registruojamasVartotojas.setGimDataMenuo(ivedimas.nextInt());
+                System.out.println("Iveskite savo REG gimimo datos diena: ");
+                registruojamasVartotojas.setGimDataDiena(ivedimas.nextInt());
+
+                failoRasytuvas.newLine();
+
+                failoRasytuvas.write("MES IRASOME I FAILA");
+
+                failoRasytuvas.close();
+                failoRas.close();
+                System.out.println("IRASEME I FAILA");
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+
         try
         {
             String dbFailoPavadinimas = "db_prisijungimai.txt";
             File dbFailas = new File(dbFailoPavadinimas);
             Scanner failoSkaitytuvas = new Scanner(dbFailas);
 
-            String temp_Vardas = failoSkaitytuvas.nextLine();
-            String temp_Password = failoSkaitytuvas.nextLine();
-            String temp_gimMetai = failoSkaitytuvas.nextLine();
-            String temp_gimMenuo = failoSkaitytuvas.nextLine();
-            String temp_gimDiena = failoSkaitytuvas.nextLine();
 
-            String[] temp_VardoMasyvas = temp_Vardas.split(":");
-
-            System.out.println(temp_VardoMasyvas[1].trim());
-
-         /*   while (failoSkaitytuvas.hasNextLine())
+            String[] eilute = new String[5];
+            int kelintaEilute = 0;
+            while (failoSkaitytuvas.hasNextLine())
             {
-                System.out.println(failoSkaitytuvas.nextLine());
-            }*/
+                eilute[kelintaEilute] = apdorotiEilute(failoSkaitytuvas.nextLine());
+           //     System.out.println(eilute[kelintaEilute]);
+                kelintaEilute++;
+
+                if (kelintaEilute == 5)
+                {
+                    dbVartotojai[kelintasVartotojas] = new Vartotojas(eilute[0], eilute[1], Integer.parseInt(eilute[2]), Integer.parseInt(eilute[3]), Integer.parseInt(eilute[4]));
+                  //  System.out.println(dbVartotojai[kelintasVartotojas].vartotojoIsvedimas());
+                    kelintasVartotojas++;
+                    kelintaEilute = 0;
+                }
+            }
         }
         catch (IOException e)
         {
@@ -37,19 +88,16 @@ public class PrisijungimoApp
             try
             {
                 naujasFailas.createNewFile();
-            }
-            catch (IOException e1)
+            } catch (IOException e1)
             {
                 System.out.println("Negalima sukurti failo, gautas error: " + e1);
             }
         }
 
-
-
-        // Susikuriamas scanner objektas - nuskaityti informacijai is konsoles
-        Scanner ivedimas = new Scanner(System.in);
-
-
+        for (int i = 0; i < kelintasVartotojas; i++)
+        {
+            System.out.println(dbVartotojai[i].vartotojoIsvedimas());
+        }
 
      /*   int skaicius = 100;
         int ivestasSkaicius = ivedimas.nextInt();*/
@@ -75,14 +123,25 @@ public class PrisijungimoApp
         int temp_gimDataDiena = ivedimas.nextInt();
 
 
+
+
         // Susikuriamas najas Vartotojas klases objektas - musu vartotojas
         Vartotojas ivestasVartotojas = new Vartotojas(temp_ivestasVartotojoVardas, temp_ivestasVartotojoPassword);
         Vartotojas kitasVartotojas = new Vartotojas(temp_ivestasVartotojoVardas, temp_ivestasVartotojoPassword, temp_gimDataMetai, temp_gimDataMenuo, temp_gimDataDiena);
 
         System.out.println(kitasVartotojas.vartotojoIsvedimas());
         System.out.println(kitasVartotojas.toString());
+        System.out.println("---------------------------");
 
-
+        for (int i = 0; i < kelintasVartotojas; i++)
+        {
+            if (kitasVartotojas.equals(dbVartotojai[i]))
+            {
+                System.out.println("RASTI VIENODI VARTOTOJAI");
+                System.out.println(kitasVartotojas.vartotojoIsvedimas());
+                System.out.println(dbVartotojai[i].vartotojoIsvedimas());
+            }
+        }
    /*     System.out.println("Vartotojas objekto username: " + ivestasVartotojas.gautiUsername());
         System.out.println("Vartotojas objekto password: " + ivestasVartotojas.gautiPassword());
         System.out.println("Kitas vartotojas objekto username: " + kitasVartotojas.getUsername());
@@ -91,31 +150,24 @@ public class PrisijungimoApp
         System.out.println("Kitas vartotojas objekto menuo: " + kitasVartotojas.getGimDataMenuo());
         System.out.println("Kitas vartotojas objekto diena: " + kitasVartotojas.getGimDataDiena());
         System.out.println("Kitas vartotojas objekto isvedimas per bruksniuka: " + kitasVartotojas.getDataPerBriuksniuka());*/
-
-
-
-
-        // Nuskaitomas slapyvardis ir slaptazodis is konsoles
+   /*     // Nuskaitomas slapyvardis ir slaptazodis is konsoles
         String vartotojoUsername = ivedimas.next();
      //   String vartotojoUsernameGavimoBudas = "Gavo per Scanner";
-        String vartotojoPassword = ivedimas.next();
-
-
-        // Nuskaitoma gimimo data is konsoles
+        String vartotojoPassword = ivedimas.next();*/
+   /*     // Nuskaitoma gimimo data is konsoles
         int vartotojoMetai = ivedimas.nextInt();
 
         while (vartotojoMetai < 0)
         {
             System.out.println("Blogai ivesti metai. Iveskite per naujo: ");
-            vartotojoMetai = ivedimas.nextInt();
-        }
+            vartotojoMetai = ivedimas.nextInt();*/
        /*  Neveikiantis tikrinimo budas, kadangi tikrina tik viena syki - o po to vartotojas vel gali klaidingai ivedineti
         if (vartotojoMetai < 0)
         {
             System.out.println("Blogai ivesti metai. Iveskite per naujo: ");
             vartotojoMetai = ivedimas.nextInt();
         }*/
-        int vartotojoMenuo = ivedimas.nextInt();
+   /*     int vartotojoMenuo = ivedimas.nextInt();
         while ((vartotojoMenuo <= 0) || (vartotojoMenuo > 12))
         {
             System.out.println("Blogai ivestas menuo. Iveskite per naujo: ");
@@ -127,11 +179,8 @@ public class PrisijungimoApp
         {
             System.out.println("Blogai ivesta diena. Iveskite per naujo: ");
             vartotojoDiena = ivedimas.nextInt();
-        }
-
-
-
-        // Isvedama bei tikrinama informacija
+        }*/
+   /*     // Isvedama bei tikrinama informacija
         String tikrasisUsername = "vartotojas123";
      //   String tikrasisUsernameGavimoBUdas = "Gavo per Koda";
         String tikrasisPassword = "slaptazodis589";
@@ -157,8 +206,7 @@ public class PrisijungimoApp
         else
         {
             System.out.println("Vartotojas gime 20 amziuje");
-        }
-
+        }*/
     }
 
     // Tikriname ar ivesti prisijungimo duomenys atitinka saugojamus prisijungimo duomenis
@@ -200,5 +248,14 @@ public class PrisijungimoApp
             ar21Amzius = false;
         }
         return ar21Amzius;
+    }
+
+    public static String apdorotiEilute (String eilute)
+    {
+        String tempEilute = eilute;
+        tempEilute = tempEilute.split(":")[1];
+        tempEilute = tempEilute.trim();
+        return tempEilute;
+     //   return eilute.split(":")[1].trim();
     }
 }

@@ -3,3 +3,8 @@ vartotojo_slaptazodis: slapt456
 vartotojo_gimMetai: 1999
 vartotojo_gimMenuo: 4
 vartotojo_gimDiena: 7
+vartotojo_vardas: antras
+vartotojo_slaptazodis: antr123
+vartotojo_gimMetai: 1977
+vartotojo_gimMenuo: 2
+vartotojo_gimDiena: 6
