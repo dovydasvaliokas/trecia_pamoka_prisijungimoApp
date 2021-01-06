@@ -66,7 +66,7 @@ public class PrisijungimoApp
                     Scanner failoSkaitytuvas = new Scanner(dbFailas);
 
 
-                    String[] eilute = new String[5];
+                    String[] eilute = new String[6];
                     int kelintaEilute = 0;
                     while (failoSkaitytuvas.hasNextLine())
                     {
@@ -74,9 +74,24 @@ public class PrisijungimoApp
                         //     System.out.println(eilute[kelintaEilute]);
                         kelintaEilute++;
 
-                        if (kelintaEilute == 5)
+                        if (kelintaEilute == 6)
                         {
-                            dbVartotojai[kelintasVartotojas] = new Vartotojas(eilute[0], eilute[1], Integer.parseInt(eilute[2]), Integer.parseInt(eilute[3]), Integer.parseInt(eilute[4]));
+                            if (eilute[5].equals("paprastas"))
+                            {
+                                dbVartotojai[kelintasVartotojas] = new PaprastasVartotojas(eilute[0], eilute[1], Integer.parseInt(eilute[2]), Integer.parseInt(eilute[3]), Integer.parseInt(eilute[4]));
+                            }
+                            else
+                                if (eilute[5].equals("VIP"))
+                                {
+                                    dbVartotojai[kelintasVartotojas] = new VIP(eilute[0], eilute[1], Integer.parseInt(eilute[2]), Integer.parseInt(eilute[3]), Integer.parseInt(eilute[4]));
+                                }
+                                else
+                                {
+                               //     dbVartotojai[kelintasVartotojas] = new Admin();
+                                    System.out.println("neatpazintas vartotojo tipas");
+                                }
+
+                        //    dbVartotojai[kelintasVartotojas] = new Vartotojas(eilute[0], eilute[1], Integer.parseInt(eilute[2]), Integer.parseInt(eilute[3]), Integer.parseInt(eilute[4]));
                             //  System.out.println(dbVartotojai[kelintasVartotojas].vartotojoIsvedimas());
                             kelintasVartotojas++;
                             kelintaEilute = 0;
@@ -140,6 +155,24 @@ public class PrisijungimoApp
                         System.out.println("RASTI VIENODI VARTOTOJAI");
                         System.out.println(prisijungesVartotojas.vartotojoIsvedimas());
                         System.out.println(dbVartotojai[i].vartotojoIsvedimas());
+                        System.out.println("****************");
+
+                        if (dbVartotojai[i] instanceof VIP)
+                        {
+                            System.out.println("PRISIJUNGĖTE Į VIP PASKYRĄ");
+                        }
+                        if (dbVartotojai[i] instanceof PaprastasVartotojas)
+                        {
+                            System.out.println("PRISIJUNGĖTE Į Paprasto Vartotojo PASKYRĄ");
+                        }
+                     //   if (adminasPasijunge)
+                        {
+                            System.out.println("Ka norite daryti?");
+                            System.out.println("Iveskite 1 jei norite prideti vartotoja");
+                            System.out.println("Iveskite 2 jei norite pakeisti vartotojo duomenis");
+                            System.out.println("Iveskite 3 jei norite istrinti vartotoja");
+                            System.out.println("Iveskite 9 jei norite istrinti visa DB");
+                        }
                     }
                 }
             }
